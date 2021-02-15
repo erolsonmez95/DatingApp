@@ -38,6 +38,7 @@ namespace API
             // in our config(appsettings.Development.json) file we only get default connection 
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -57,6 +58,10 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // this middleware should add between routing and authorization
+            // localhost:4200 stands for ng(client) side
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
