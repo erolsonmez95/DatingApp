@@ -3,16 +3,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
 
-
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+ // implements baseapicontroller because we dont want repeat our self
+ // by using again and again ;
+ /*
+ [ApiController]
+[Route("api/[controller]")]
+ */
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
         public UsersController(DataContext context)
@@ -24,13 +28,13 @@ namespace API.Controllers
         // because if there are lots of request with out async, our system may break down.
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUser(){
-        //IEnum burda daha uygun
         return await _context.Users.ToListAsync();
         // to list için Linq 'ya ihtiyacımız var
         }
 
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id){
        
