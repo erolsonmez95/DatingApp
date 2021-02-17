@@ -22,14 +22,7 @@ namespace API.Controllers
 
     [HttpPost("register")]
 
-    /*
-    {
-"username": "test",
-"password": "password"
-}
-if we send a request in body like above, we get error,
-because our parameters are string in out method, it should be object which comes from body.
-*/
+    
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
 
@@ -43,7 +36,7 @@ because our parameters are string in out method, it should be object which comes
 
         var user = new AppUser
         {
-            UserName = registerDto.UserName.ToLower(),
+            UserName = registerDto.UserName,
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
             PasswordSalt = hmac.Key
         };
@@ -60,8 +53,9 @@ because our parameters are string in out method, it should be object which comes
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
-        if (user == null) return Unauthorized("Invalid username");
+        
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
+        if (user==null ) return Unauthorized("Invalid username");
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -75,17 +69,15 @@ because our parameters are string in out method, it should be object which comes
             }
         }
 
-
         return new UserDto{
             UserName=user.UserName,
             Token= _tokenService.CreateToken(user)
         };
-
     }
 
     private async Task<bool> UserExists(string username)
     {
-        return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        return await _context.Users.AnyAsync(x => x.UserName == username);
     }
 
 
