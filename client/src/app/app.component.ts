@@ -2,6 +2,7 @@ import { AccountService } from './_services/account.service';
 import { User } from './_models/user';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,12 +14,14 @@ export class AppComponent implements OnInit {
   title = 'The Dating App';
 
   users:any;
-  
+  private currentUser$: Observable<User>;
 
   constructor( private accountService:AccountService) {
+    this.currentUser$ = this.accountService.currentUser$;
+      this.accountService.setCurrentUser(null!);
   }
   ngOnInit() {
-    this.setCurrentUser();
+  
   }
 
   setCurrentUser(){
