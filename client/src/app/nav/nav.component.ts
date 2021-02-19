@@ -34,13 +34,6 @@ export class NavComponent implements OnInit {
       this.toastr.success("Wellcome:  " + this.model.username);
       this.router.navigateByUrl('/members');
       
-    }, error => {
-      console.log(error);
-      console.log(this.accountService.currentUser$);
-      this.toastr.error(error.error);
-      
-      // this.toastr.error(error.error); // This allows us to get the error message from the http response. The error is now handled in our error handling middleware on the api 
-      
     })
   }
 
