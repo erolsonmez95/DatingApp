@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   
   accountService: any;
   constructor() {
-   ;
    }
 
   ngOnInit(): void {

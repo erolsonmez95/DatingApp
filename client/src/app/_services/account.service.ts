@@ -9,8 +9,6 @@ import { ReplaySubject, BehaviorSubject } from 'rxjs';
 })
 export class AccountService {
   baseUrl = "https://localhost:5001/api/";
-
-  
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -29,11 +27,7 @@ export class AccountService {
       }
       
       return user;
-    })
-
-
-    )
-
+    }))
   }
 
 
@@ -47,7 +41,7 @@ export class AccountService {
           this.currentUserSource.next(user);
           
         }
-        console.log(user);
+      
         return user;
       })
     ));

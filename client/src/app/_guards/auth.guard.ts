@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
   private currentUser$: Observable<User>;
     constructor(private accountService:AccountService ,private toastr:ToastrService) {
       this.currentUser$ = this.accountService.currentUser$;
-      this.accountService.setCurrentUser(null!);
   }
 
 
