@@ -1,4 +1,5 @@
 using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,11 @@ namespace API.Extensions
              //when service created then it's after usage auto destroyed.
             // if we need ITokenService, it will created from TokenService iff needed
             services.AddScoped<ITokenService, TokenService>();
-    
+
+             services.AddScoped<IUserRepository, UserRepository>();
+
+            //configuration to be able use automapper.
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             
             // using lambda expressions to pass expression
             // our expression is connection string
