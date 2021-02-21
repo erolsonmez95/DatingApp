@@ -23,8 +23,8 @@
          
            
         </ul>
-        <div class="dropdown" *ngIf="(accountService.currentUser$ | async)" dropdown value="userName">
-            <a class="dropdown-toggle text-light" dropdownToggle >Welcome {{model.username | titlecase}}</a>
+        <div class="dropdown" *ngIf="(accountService.currentUser$ | async)" dropdown value="username">
+            <a class="dropdown-toggle text-light" dropdownToggle >Welcome {{this.model.username| titlecase}}</a>
             <div class="dropdown-menu" *dropdownMenu>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item">Edit Profile</a>

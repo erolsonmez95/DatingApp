@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 
 @NgModule({
@@ -12,13 +13,22 @@ import { ToastrModule } from 'ngx-toastr';
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    })
+    }),
+   
+    TabsModule.forRoot(),
+    NgxGalleryModule
+  
+
   ],
+
+
   // Export does not exists creation of file we added it to 
   // be available use them everywhere needed. 
   exports:[
     BsDropdownModule,
-    ToastrModule
+    ToastrModule,
+    TabsModule,
+    NgxGalleryModule
 
   ]
 })

@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { User } from './../_models/user';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,8 +9,8 @@ import { ReplaySubject, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = "https://localhost:5001/api/";
-  private currentUserSource = new ReplaySubject<User>(1);
+  baseUrl = environment.apiUrl;
+  private currentUserSource = new BehaviorSubject<User>(undefined!);
   currentUser$ = this.currentUserSource.asObservable();
  
 
@@ -53,6 +54,6 @@ export class AccountService {
   }
     logout() {
     localStorage.removeItem('user');
-    this.currentUserSource.next(undefined);
+    this.currentUserSource.next(undefined!);
   }
 }
