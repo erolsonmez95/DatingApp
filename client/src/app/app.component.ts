@@ -1,37 +1,31 @@
-import { AccountService } from './_services/account.service';
-import { User } from './_models/user';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
+ 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'The Dating App';
+  title = 'Dating App';
+  user: User = JSON.parse(localStorage.getItem('user') || '{}');
+  // Dependency injection
+  constructor(public accountService: AccountService) {
 
-  users:any;
-  private currentUser$: Observable<User>;
-
-  constructor( private accountService:AccountService) {
-    this.currentUser$ = this.accountService.currentUser$;
-    this.accountService.setCurrentUser(undefined!);
-    
   }
-  ngOnInit() {
-    
-  
-  }
-
-  setCurrentUser(){
-    const user:User = JSON.parse(localStorage.getItem('user') ?? '{}');
-    this.accountService.setCurrentUser(user);
-  }
-
-
-
  
+  ngOnInit() {
+    if(this.user.userName != undefined){
+    this.setCurrentUser();
+    }
+    
+  }
+  
+  setCurrentUser() {
+    this.accountService.setCurrentUser(this.user);
+    }
+ 
+
 }

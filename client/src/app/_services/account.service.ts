@@ -9,9 +9,10 @@ import { ReplaySubject, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AccountService {
+
   baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User>(undefined!);
-  currentUser$ = this.currentUserSource.asObservable();
+  currentUser$= this.currentUserSource.asObservable();
  
 
   constructor(private http: HttpClient) { 
@@ -19,7 +20,7 @@ export class AccountService {
    ngOnInit(){
     
   }
-
+ 
 
   
   register (model:any){
