@@ -1,11 +1,9 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    [Table("Photos")]
-    //to create table photos, and it's used with user
+      
         public class DataContext : DbContext
     {
         public DataContext(DbContextOptions options) : base(options)

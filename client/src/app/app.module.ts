@@ -23,9 +23,11 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -38,7 +40,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FormsModule,
     SharedModule,
     NgxSpinnerModule,
-    NgxGalleryModule,
+    NgxGalleryModule
   
 
   ],
@@ -57,6 +61,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
     {provide: HTTP_INTERCEPTORS,useClass: JwtInterceptor,multi:true},
     {provide: HTTP_INTERCEPTORS,useClass: LoadingInterceptor,multi:true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

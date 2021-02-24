@@ -8,6 +8,9 @@ namespace API.DTOs
         public string UserName{ get; set; }
        [Required]
         public string Token { get; set; }
+
+        public string PhotoUrl {get;set;}
+        // to transfer main photo.
         
     
     

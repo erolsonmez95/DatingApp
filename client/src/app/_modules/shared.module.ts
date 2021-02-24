@@ -4,10 +4,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
@@ -16,7 +18,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     }),
    
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule,
   
 
   ],
@@ -25,10 +28,12 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
   // Export does not exists creation of file we added it to 
   // be available use them everywhere needed. 
   exports:[
+    CommonModule,
     BsDropdownModule,
     ToastrModule,
     TabsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
 
   ]
 })
