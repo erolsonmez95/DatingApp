@@ -66,7 +66,6 @@ namespace API.Controllers
 
             // this should give to us username from API TOKEN.
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-
             _mapper.Map(memberUpdateDto, user);
             // it will map properties automatically
 

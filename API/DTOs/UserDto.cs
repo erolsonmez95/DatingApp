@@ -11,6 +11,8 @@ namespace API.DTOs
 
         public string PhotoUrl {get;set;}
         // to transfer main photo.
+
+        public string KnownAs{ get; set; }
         
     
     
