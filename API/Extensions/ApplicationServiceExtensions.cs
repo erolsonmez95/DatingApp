@@ -26,6 +26,9 @@ namespace API.Extensions
             //used for photo service which related to cloudinary.
             services.AddScoped<IPhotoService, PhotoService>();
 
+
+            services.AddScoped<LogUserActivity>();
+
             //configuration to be able use automapper.
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             
