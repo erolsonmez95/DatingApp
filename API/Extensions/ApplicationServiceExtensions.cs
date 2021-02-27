@@ -25,6 +25,8 @@ namespace API.Extensions
 
             services.AddScoped<ILikesRepository,LikesRepository>();
 
+            services.AddScoped<IMessageRepository,MessageRepository>();
+
             //used for photo service which related to cloudinary.
             services.AddScoped<IPhotoService, PhotoService>();
 

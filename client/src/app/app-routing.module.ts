@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 
 const routes: Routes = [
   {path: '',component:HomeComponent},
@@ -19,7 +20,7 @@ const routes: Routes = [
   canActivate:[AuthGuard],
   children:[
     {path: 'members',component:MemberListComponent,canActivate:[AuthGuard]},
-    {path: 'members/:username',component:MemberDetailComponent},
+    {path: 'members/:username',component:MemberDetailComponent,resolve:{member: MemberDetailedResolver}},
     {path: 'lists',component:ListsComponent},
     {path: 'member/edit',component:MemberEditComponent, canDeactivate:[PreventUnsavedChangesGuard]},
     {path: 'messages',component:MessagesComponent},
