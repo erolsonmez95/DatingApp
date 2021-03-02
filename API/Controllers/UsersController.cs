@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Security.Claims;
+
 using System.Threading.Tasks;
-using API.Data;
+
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -12,7 +12,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Controllers
 {
@@ -43,7 +43,7 @@ namespace API.Controllers
         }
         // use async methods for database calls
         // because if there are lots of request with out async, our system may break down.
-
+       
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUser([FromQuery]UserParams userParams)
         {
@@ -64,7 +64,7 @@ namespace API.Controllers
 
         }
 
-
+     
         [HttpGet("{username}", Name="GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
