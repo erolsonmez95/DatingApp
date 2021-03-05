@@ -1,3 +1,4 @@
+import { PresenceService } from './_services/presence.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
   title = 'Dating App';
   user: User = JSON.parse(localStorage.getItem('user') || '{}');
   // Dependency injection
-  constructor(public accountService: AccountService) {
+  constructor(public accountService: AccountService
+    ,private prsence:PresenceService) {
 
   }
  
@@ -24,7 +26,11 @@ export class AppComponent implements OnInit {
   }
   
   setCurrentUser() {
-    this.accountService.setCurrentUser(this.user);
+    if (this.user){
+      this.accountService.setCurrentUser(this.user);
+      this.prsence.createHubConnection(this.user);  
+    }
+   
     }
  
 

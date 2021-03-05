@@ -1,5 +1,6 @@
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,15 +24,16 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             // our aim is keep clear our startup class as possible as.
-          // AddApplicationServices contains at Extensions/ApplicationServiceExtensions due to singleton we moved them into extensions.
-           services.AddApplicationServices(_config);
+            // AddApplicationServices contains at Extensions/ApplicationServiceExtensions due to singleton we moved them into extensions.
+            services.AddApplicationServices(_config);
 
             services.AddControllers();
             services.AddCors();
 
             // AddIdentityServices contains at Extensions/IdentityServiceExtensions  due to singleton we moved them into extensions.
             services.AddIdentityServices(_config);
-            
+            services.AddSignalR();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -42,13 +44,13 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
-          if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
-               // app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-            
+
 
             app.UseHttpsRedirection();
 
@@ -56,8 +58,11 @@ namespace API
 
             // this middleware should add between routing and authorization
             // localhost:4200 stands for ng(client) side
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
-            
+            app.UseCors(x => x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials() // needed for signalR configuration to available get tokens
+            .WithOrigins("https://localhost:4200"));
+
             // Authentication should come before Authorization
             app.UseAuthentication();
 
@@ -66,6 +71,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }
