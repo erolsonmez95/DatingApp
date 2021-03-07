@@ -10,7 +10,7 @@ namespace API.Interfaces
     {
         public void Update(AppUser user);
 
-        public Task<bool> SaveAllAsync();
+    
 
         public Task<IEnumerable<AppUser>> GetUsersAsync();
 
@@ -20,6 +20,8 @@ namespace API.Interfaces
 
         public Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         public Task<MemberDto> GetMemberAsync(string username);
+
+        Task<string> GetUserGender(string username);
         
         
     }
